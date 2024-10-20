@@ -1,0 +1,53 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/containers/protos/WoodenBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+
+WorldInfo {
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation -0.2983002456139803 -0.20609845870509821 0.9319551431190356 4.285747419755258
+  position 0.5621956292123624 0.8936357202427453 0.6264977954537082
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorTileSize 0.25 0.25
+}
+WoodenBox {
+  translation 0.197306 -0.313901 0.05
+  size 0.1 0.1 0.1
+}
+WoodenBox {
+  translation -0.441274 0.443826 0.05
+  name "wooden box(2)"
+  size 0.1 0.1 0.1
+}
+WoodenBox {
+  translation 0.1862300017874527 0.31253987280976286 0.04990189999999999
+  rotation 3.8156241765255427e-10 -5.102858681673919e-10 -1 1.356986794017771e-08
+  name "wooden box(1)"
+  size 0.1 0.1 0.1
+  mass 0.5
+}
+E-puck {
+  hidden position_0_0 238.93964544226807
+  hidden position_0_1 389.41015683053445
+  hidden linearVelocity_0 -0.03606221701141813 0.05087362219347296 0.00016402582120092035
+  hidden angularVelocity_0 -0.013362916267853096 -0.0017225835607758474 2.235105718702484
+  hidden rotation_1 0 1 0 0.17860376944378809
+  hidden linearVelocity_1 -0.0016124529346996097 0.005491334867032044 2.460845407167466e-06
+  hidden angularVelocity_1 -0.06659474949202071 0.07140519946540902 2.1968249670027222
+  hidden rotation_2 0 -1 0 0.1473322145999156
+  hidden linearVelocity_2 -0.07098719558138408 0.09724400959800378 -3.3626744617641804e-07
+  hidden angularVelocity_2 -5.0888653212611255 -3.7000562469074145 2.2327609189135407
+  translation 0.22802136196545789 -0.20267114169314138 -4.251330269551372e-05
+  rotation -0.0010928880832610421 0.0002878408024389009 0.9999993613714511 2.235990640386598
+  controller "epuck_final"
+}
