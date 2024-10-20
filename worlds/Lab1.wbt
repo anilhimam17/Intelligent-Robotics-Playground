@@ -1,0 +1,60 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puckGroundSensors.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/containers/protos/WoodenBox.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.3302946833899664 -0.6994180224408034 0.633813736052886 5.002503671109428
+  position -0.9871065089582779 1.0663474938759876 2.243351943152576
+}
+Background {
+  skyColor [
+    0.4 0.7 1
+  ]
+}
+RectangleArena {
+  translation 0.379919 -0.198471 0
+  floorSize 2.2 1.8
+  floorTileSize 2.2 1.8
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "../../../Downloads/circuit_line_lab1.jpg"
+      ]
+      filtering 1
+    }
+  }
+  wallThickness 0.025
+  wallHeight 0.05
+}
+WoodenBox {
+  translation 0.245485 -0.399184 0.05
+  size 0.1 0.1 0.1
+}
+PointLight {
+  attenuation 0 0 1
+  location 0 0 1
+}
+E-puck {
+  hidden position_0_0 17.934618927099876
+  hidden position_0_1 16.942767114895183
+  hidden linearVelocity_0 -4.011806084258674e-05 5.385600492976058e-09 -7.088051082367505e-09
+  hidden angularVelocity_0 5.411900236277728e-07 5.201252845515395e-07 0.00108295116117729
+  hidden rotation_1 0 -1 0 6.273531920460814
+  hidden linearVelocity_1 -3.929101836703083e-05 2.8154689972204417e-05 -2.6045635159733602e-08
+  hidden angularVelocity_1 0.9999983695720551 -0.0020068779649159135 0.0010857781553158402
+  hidden rotation_2 0 -1 0 2.612505620849992
+  hidden linearVelocity_2 -4.0981564304026236e-05 -2.8150924646516793e-05 9.39428588252859e-09
+  hidden angularVelocity_2 0.9999983695801824 -0.0020069405702250274 0.0010857975348069326
+  translation 0.2833308775630566 -0.3124122334829528 -4.134411028892601e-05
+  rotation -0.0020482006863188334 -0.002044182294929394 -0.9999958130875817 1.57279143557816
+  controller "my_first_controller"
+  groundSensorsSlot [
+    E-puckGroundSensors {
+    }
+  ]
+}
