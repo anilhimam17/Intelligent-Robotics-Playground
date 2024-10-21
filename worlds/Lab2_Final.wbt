@@ -8,7 +8,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.2868328289692914 0.6066776533950835 0.7413967582182351 1.1353773410000236
-  position -1.189862559810991 -1.6300495960026966 2.8354263245814817
+  position -1.2069426587887067 -1.4335361967593023 1.9604656614954847
 }
 Background {
   skyColor [
@@ -16,7 +16,7 @@ Background {
   ]
 }
 RectangleArena {
-  translation 0.0634015 0.065707 -8.32667e-16
+  translation 0.12551 0.121589 -1.27676e-15
   floorSize 2.2 1.8
   floorTileSize 2.2 1.8
   floorAppearance PBRAppearance {
@@ -36,23 +36,17 @@ DEF Light SpotLight {
   attenuation 0 0 2
   beamWidth 0.3
   cutOffAngle 0.4
-  direction -0.4 -0.7 -0.5
+  direction -0.7 -0.7 -0.5
   intensity 10
   location 1.2 1 0.2
 }
 DEF Controller E-puck {
-  hidden position_0_0 309.52616559325446
-  hidden position_0_1 318.37274544462207
-  hidden linearVelocity_0 0.019845482421600086 1.5575554842511273e-11 -3.237895512604988e-08
-  hidden angularVelocity_0 -1.2168532140994906e-10 -0.01030117640196054 9.152365848630295e-10
-  hidden rotation_1 0 -0.9999999999999999 0 4.633099765724863
-  hidden linearVelocity_1 0.019793976701438558 1.6350041015088997e-11 -2.197846353762694e-11
-  hidden angularVelocity_1 3.968973955027121e-09 0.9896988236076191 3.0007733107179794e-08
-  hidden rotation_2 0 1 0 4.213480085642745
-  hidden linearVelocity_2 0.01979397674408509 1.602382842299378e-11 -1.542654889052714e-11
-  hidden angularVelocity_2 -5.5878467886063176e-09 0.9896988236093236 -2.9557636268747396e-08
-  translation 0.9919331529247399 0.20000000040942292 -6.396134690922137e-05
-  rotation -1.863078955078567e-06 0.9999999999964864 1.8858407121015075e-06 0.0003720020239827937
+  hidden position_0_0 405.07050766463095
+  hidden position_0_1 421.33991113533233
+  hidden rotation_1 0 1 0 2.9466480051374173
+  hidden rotation_2 0 -1 0 5.9166897528795515
+  translation 1.12055997647707 0.20000000056176245 -6.396063675001042e-05
+  rotation -1.876585187085247e-07 0.9999999999999579 -2.218112269999241e-07 0.0004533773363152093
   controller "follow_light"
   groundSensorsSlot [
     E-puckGroundSensors {
@@ -60,6 +54,14 @@ DEF Controller E-puck {
   ]
 }
 Robot {
+  children [
+    Receiver {
+    }
+    Display {
+      width 200
+      height 100
+    }
+  ]
   name "Supervisor"
   controller "supervisor_lab2"
   supervisor TRUE

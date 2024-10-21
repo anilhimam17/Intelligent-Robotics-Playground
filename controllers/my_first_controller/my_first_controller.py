@@ -80,7 +80,7 @@ class Controller:
         if len(self.inputs) > 0 and len(self.inputsPrevious) > 0:
         
             # Checking for a possible collision using all the proximity sensors with a timestamp from detection
-            if np.max(self.inputs[3:11]) > 0.4:
+            if np.max(self.inputs[3:11]) > 2000:
                 time = datetime.now()
                 print(f"{time.second} - {time.microsecond}: Object or Wall was detected")
             
