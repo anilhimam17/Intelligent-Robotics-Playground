@@ -62,24 +62,31 @@ class SupervisorLight:
                 # Updating the Params for the SpotLight
                 # Location
                 INITIAL_LOCATION = [1.2, 1, 0.2]
-                self.location_field.setSFLocation(INITIAL_LOCATION)
+                self.location_field.setSFVec3f(INITIAL_LOCATION)
                 
                 # Direction
-                INITIAL_DIRECTION = [-0.5, -0.5, -0.5]
-                self.direction_field.setSFDirection(INITIAL_DIRECTION)
+                INITIAL_DIRECTION = [-0.4, -0.7, -0.5]
+                self.direction_field.setSFVec3f(INITIAL_DIRECTION)
                 
             iterations += 1
             
     def run_demo(self):
         # Reset physics of the robot (position and rotation)
         # Position
-        INITIAL_TRANS = [0.35, 0.20, 0]
+        INITIAL_TRANS = [0.390, 0.300, 0]
         self.trans_field.setSFVec3f(INITIAL_TRANS)
         
         # Rotation
         INITIAL_ROT = [0, 1, 0, -0.0]
-        self.rot_field.setSFRotation(INITIAL_ROT)
+        self.rotation_field.setSFRotation(INITIAL_ROT)
         self.robot_node.resetPhysics()
+        
+        INITIAL_LOCATION = [1.2, 1, 0.2]
+        self.location_field.setSFVec3f(INITIAL_LOCATION)
+        
+        # Direction
+        INITIAL_DIRECTION = [-0.7, -0.7, -0.5]
+        self.direction_field.setSFVec3f(INITIAL_DIRECTION)
         
         # Applying supervisor to alter the nodes based on timesteps
         self.run_seconds(self.time_light)
