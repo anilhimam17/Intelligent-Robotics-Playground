@@ -1,0 +1,66 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puckGroundSensors.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.2868328289692914 0.6066776533950835 0.7413967582182351 1.1353773410000236
+  position -1.189862559810991 -1.6300495960026966 2.8354263245814817
+}
+Background {
+  skyColor [
+    0.4 0.7 1
+  ]
+}
+RectangleArena {
+  translation 0.0634015 0.065707 -8.32667e-16
+  floorSize 2.2 1.8
+  floorTileSize 2.2 1.8
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "../floor_texture_lab2.png"
+      ]
+      filtering 1
+    }
+    roughness 1
+    metalness 0
+  }
+  wallThickness 0.025
+  wallHeight 0.05
+}
+SpotLight {
+  attenuation 0 0 2
+  beamWidth 0.3
+  cutOffAngle 0.4
+  direction -0.7 -0.7 -0.5
+  intensity 10
+  location 1.2 1 0.2
+}
+E-puck {
+  hidden position_0_0 124.13347582990964
+  hidden position_0_1 124.72537240403354
+  hidden linearVelocity_0 0.019079159383533814 0.0038947053682284556 -3.0212408436087135e-07
+  hidden angularVelocity_0 0.006999633974938493 -0.034459137678385016 9.47606671840555e-06
+  hidden rotation_1 0 -0.9999999999999999 0 1.5302303136820874
+  hidden linearVelocity_1 0.0189070260372544 0.00385859155538207 -4.0370812313654994e-08
+  hidden angularVelocity_1 -0.19292096716508159 0.9453529738641052 3.173467750574553e-05
+  hidden rotation_2 0 -0.9999999999999999 0 0.9383337395581938
+  hidden linearVelocity_2 0.018906521492285052 0.0038610570620583387 -3.049665913928202e-08
+  hidden angularVelocity_2 -0.1930614476671162 0.9453243311642198 5.169939796934837e-05
+  translation 0.7270507389767318 0.5710808245654149 -6.397024743090042e-05
+  rotation -0.000418785508911787 0.004350420236962966 0.9999904491856205 0.20113506428955627
+  controller "follow_light"
+  groundSensorsSlot [
+    E-puckGroundSensors {
+    }
+  ]
+}
+Robot {
+  name "Supervisor"
+  controller "supervisor_lab2"
+  supervisor TRUE
+}
