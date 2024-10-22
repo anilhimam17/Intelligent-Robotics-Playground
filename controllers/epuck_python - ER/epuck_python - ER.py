@@ -23,8 +23,8 @@ class Controller:
         self.number_input_layer = 11
         # Example with one hidden layers: self.number_hidden_layer = [5]
         # Example with two hidden layers: self.number_hidden_layer = [7,5]
-        self.number_hidden_layer = [?] OR [?,?]
-        self.number_output_layer = ?
+        self.number_hidden_layer = [7]
+        self.number_output_layer = 2
         
         # Create a list with the number of neurons per layer
         self.number_neuros_per_layer = []
@@ -139,19 +139,19 @@ class Controller:
         ###########
         ### DEFINE the fitness function to increase the speed of the robot and 
         ### to encourage the robot to move forward
-        forwardFitness = ?
+        forwardFitness = (self.velocity_left + self.velocity_right) / 2
                       
-        ###########
+        ###########s
         ### DEFINE the fitness function equation to avoid collision
-        avoidCollisionFitness = ?
+        avoidCollisionFitness = 1 - np.max(self.inputs[3:11])
         
         ###########
         ### DEFINE the fitness function equation to avoid spining behaviour
-        spinningFitness = ?
+        spinningFitness = 1 - np.sqrt(np.abs(self.velocity_left - self.velocity_right))
         
         ###########
         ### DEFINE the fitness function equation of this iteration which should be a combination of the previous functions         
-        combinedFitness = ?
+        combinedFitness = forwardFitness * (spinningFitness) * (avoidCollisionFitness)
         
         self.fitness_values.append(combinedFitness)
         self.fitness = np.mean(self.fitness_values) 

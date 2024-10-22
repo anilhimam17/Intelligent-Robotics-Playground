@@ -36,9 +36,9 @@ class SupervisorGA:
         
         ###########
         ### DEFINE here the 3 GA Parameters:
-        self.num_generations = ?
-        self.num_population = ?
-        self.num_elite = ?
+        self.num_generations = 100
+        self.num_population = 50
+        self.num_elite = 10
         
         # size of the genotype variable
         self.num_weights = 0
