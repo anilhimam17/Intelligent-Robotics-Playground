@@ -139,23 +139,20 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            fitness = self.receivedFitness
+            weight_paper = 0.2
+            weight_reward = 0.8
+            
+            paper_fitness = self.receivedFitness
             
             # Check for Reward and add it to the fitness value here
             REWARD_TRANS = [0.35, -4.20e-5, -0.16]
             current_trans = self.trans_field.getSFVec3f()
-            transFitness = np.sqrt(np.square(REWARD_TRANS[0] - current_trans[0]) + np.square(REWARD_TRANS[-1] - current_trans[-1]))
+            reward_fitness = np.sqrt(
+                np.square(REWARD_TRANS[0] - current_trans[0]) + 
+                np.square(REWARD_TRANS[-1] - current_trans[-1])
+            )
             
-            if transFitness >= 80:
-                print("Far away")
-            elif transFitness >= 50 and transFitness < 80:
-                print("Mid way")
-            elif transFitness >= 20 and transFitness < 50:
-                print("Close way")
-            else:
-                print("Closest")
-                
-            print(transFitness)
+            fitness = weight_paper * paper_fitness + weight_reward * reward_fitness
             
             print("Fitness: {}".format(fitness))     
                         
@@ -184,10 +181,18 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            fitness = self.receivedFitness
+            paper_fitness = self.receivedFitness
             
             # Check for Reward and add it to the fitness value here
-            # Add your code here
+            # Check for Reward and add it to the fitness value here
+            REWARD_TRANS = [-0.35, -4.20e-5, -0.16]
+            current_trans = self.trans_field.getSFVec3f()
+            reward_fitness = np.sqrt(
+                np.square(REWARD_TRANS[0] - current_trans[0]) + 
+                np.square(REWARD_TRANS[-1] - current_trans[-1])
+            )
+            
+            fitness = weight_paper * paper_fitness + weight_reward * reward_fitness
             
             print("Fitness: {}".format(fitness))
             
