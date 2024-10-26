@@ -139,20 +139,31 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            weight_paper = 0.2
-            weight_reward = 0.8
+            weight_paper = 0.35
+            weight_reward = 0.65
             
             paper_fitness = self.receivedFitness
             
             # Check for Reward and add it to the fitness value here
             REWARD_TRANS = [0.35, -4.20e-5, -0.16]
             current_trans = self.trans_field.getSFVec3f()
-            reward_fitness = np.sqrt(
+            
+            # Distance Calculation WRT Reward
+            trans_reward_fitness = np.sqrt(
                 np.square(REWARD_TRANS[0] - current_trans[0]) + 
                 np.square(REWARD_TRANS[-1] - current_trans[-1])
             )
             
-            fitness = weight_paper * paper_fitness + weight_reward * reward_fitness
+            # Distance Calculation WRT Initial State
+            trans_init_fitness = np.sqrt(
+                np.square(INITIAL_TRANS[0] - current_trans[0]) +
+                np.square(INITIAL_TRANS[-1] - current_trans[-1]) 
+            )
+            
+            if trans_init_fitness < trans_reward_fitness:
+                fitness = weight_paper * paper_fitness
+            elif trans_reward_fitness < trans_init_fitness:
+                fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
             
             print("Fitness: {}".format(fitness))     
                         
@@ -186,14 +197,23 @@ class SupervisorGA:
             # Check for Reward and add it to the fitness value here
             # Check for Reward and add it to the fitness value here
             REWARD_TRANS = [-0.35, -4.20e-5, -0.16]
-            current_trans = self.trans_field.getSFVec3f()
-            reward_fitness = np.sqrt(
+            
+            # Distance Calculation WRT Reward
+            trans_reward_fitness = np.sqrt(
                 np.square(REWARD_TRANS[0] - current_trans[0]) + 
                 np.square(REWARD_TRANS[-1] - current_trans[-1])
             )
             
-            fitness = weight_paper * paper_fitness + weight_reward * reward_fitness
+            # Distance Calculation WRT Initial State
+            trans_init_fitness = np.sqrt(
+                np.square(INITIAL_TRANS[0] - current_trans[0]) +
+                np.square(INITIAL_TRANS[-1] - current_trans[-1]) 
+            )
             
+            if trans_init_fitness < trans_reward_fitness:
+                fitness = weight_paper * paper_fitness
+            elif trans_reward_fitness < trans_init_fitness:
+                fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
             print("Fitness: {}".format(fitness))
             
             # Add fitness value to the vector
