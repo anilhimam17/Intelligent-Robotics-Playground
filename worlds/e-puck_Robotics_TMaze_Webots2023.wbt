@@ -2,7 +2,6 @@
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/RectangleArena.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/robots/gctronic/e-puck/protos/E-puckGroundSensors.proto"
 
@@ -14,13 +13,11 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.7065846608130061 0.7064839932924168 0.040230390569433755 3.05765228375377
-  position -0.08593451164076157 2.090891402402938 0.39967300173949416
+  orientation 0.7007748849067585 -0.7027420679508593 -0.12275237926846631 3.362589971202808
+  position -0.057912055330723994 1.555816131149694 0.7483050228317837
 }
 TexturedBackground {
   texture "mars"
-}
-TexturedBackgroundLight {
 }
 RectangleArena {
   rotation 1 0 0 -1.5707996938995747
@@ -29,7 +26,7 @@ RectangleArena {
   floorAppearance PBRAppearance {
     baseColorMap ImageTexture {
       url [
-        "../ground.png"
+        "ground.png"
       ]
     }
     roughness 0.2
@@ -156,23 +153,6 @@ DEF OBSTACLE1 Solid {
   name "red box(5)"
   boundingObject USE BOX1
 }
-DEF Mark Solid {
-  translation 0.01 -0.1 0.193
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 0 0 0
-        roughness 0.5
-        metalness 0
-      }
-      geometry DEF BOX1 Box {
-        size 0.11 0.05 0.08
-      }
-    }
-  ]
-  name "red box(13)"
-  boundingObject USE BOX1
-}
 DEF OBSTACLE1 Solid {
   translation -0.002842 0.025 0.437599
   children [
@@ -225,20 +205,18 @@ DEF OBSTACLE1 Solid {
   boundingObject USE BOX1
 }
 DEF Controller E-puck {
-  hidden position_0_0 3054666.481456334
-  hidden position_0_1 2827096.2300507994
-  hidden linearVelocity_0 -2.327650582810888e-10 -8.740987406478478e-09 5.735603565426573e-09
-  hidden angularVelocity_0 -5.671366939886853e-07 2.440374212729112e-09 -3.3315860692657256e-08
-  hidden translation_1 0 0.025999999999987887 0.02
-  hidden rotation_1 7.73213037140011e-17 0.9999999999999999 -1.1829354678166336e-16 1.3402126383314032
-  hidden linearVelocity_1 -6.601892141952705e-11 -7.708069330745199e-09 2.9634924308886115e-09
-  hidden angularVelocity_1 -2.976639720250942 -4.740706030508177e-07 -9.842135015925181e-08
-  hidden translation_2 0 -0.02599999999998905 0.02
-  hidden rotation_2 0 0.9999999999999999 0 5.354933489111767
-  hidden linearVelocity_2 -6.643699295470642e-11 -9.408802220662426e-09 2.835730346365911e-09
-  hidden angularVelocity_2 -2.9802890258374073 -4.920573165046938e-07 1.0428558489989091e-07
-  translation 0.022725581591854813 -4.190361466278013e-05 -0.17562922218880675
-  rotation -0.5765604046199949 0.5765603181528651 0.5789268514725284 2.0920319949881536
+  hidden position_0_0 212148.2891275653
+  hidden position_0_1 456889.10241205327
+  hidden linearVelocity_0 6.210425692228702e-16 -4.736951571734002e-15 -1.3222911586430202e-11
+  hidden angularVelocity_0 6.117913340253793e-14 1.0190676921737513e-13 -1.4891957417483286e-13
+  hidden rotation_1 -5.809917566818019e-17 1 -9.411089848174877e-18 2.464037222382375
+  hidden linearVelocity_1 -4.305056679460736e-16 5.041895594153974e-16 -1.3221709835235979e-11
+  hidden angularVelocity_1 -5.177221168529119e-13 5.801676735991989e-14 1.4407376216595198e-13
+  hidden rotation_2 1.0591812858264393e-16 -1 1.2646660883719524e-16 2.0624632084295134
+  hidden linearVelocity_2 2.470965598498126e-15 -7.176677517956613e-16 -1.3222020684971287e-11
+  hidden angularVelocity_2 -5.581324511081252e-13 -5.032758215356491e-15 9.26160441992908e-14
+  translation 0.25556017244279816 -6.395144747307208e-05 0.0031324574746151813
+  rotation -0.7398596514698417 0.4757185421877081 0.47570953821184464 1.8676427591901281
   controller "epuck_python - ER"
   emitter_channel 20
   receiver_channel 19
@@ -246,4 +224,11 @@ DEF Controller E-puck {
     E-puckGroundSensors {
     }
   ]
+}
+DEF Mark SpotLight {
+  attenuation 0 0 1
+  beamWidth 0.4
+  direction -5 0 -0.1
+  intensity 10
+  location 0.1 0 0.2
 }

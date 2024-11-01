@@ -63,7 +63,9 @@ class SupervisorGA:
         if self.mark_node is None:
             sys.stderr.write("No DEF Mark node found in the current world file\n")
             sys.exit(1)
-        self.mark_trans_field = self.mark_node.getField("translation")      
+        #self.mark_trans_field = self.mark_node.getField("translation")
+        self.mark_loc_field = self.mark_node.getField("location")
+
 
     def createRandomPopulation(self):
         # Wait until the supervisor receives the size of the genotypes (number of weights)
@@ -131,8 +133,8 @@ class SupervisorGA:
             #Webots 2022:  
             # INITIAL_TRANS = [0.01, -0.03425, 0.193]
             #Webots 2023:
-            INITIAL_TRANS = [0.01, -0.0249, 0.193]
-            self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
+            INITIAL_TRANS = [0.2, 0, 0.2]
+            self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
             self.mark_node.resetPhysics()
         
             # Evaluation genotype 
@@ -184,8 +186,8 @@ class SupervisorGA:
             self.robot_node.resetPhysics()
             
             # Reset the black mark position and physics
-            INITIAL_TRANS = [0.01, -0.1, 0.193]
-            self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
+            INITIAL_TRANS = [0.2, -10, 0.2]
+            self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
             self.mark_node.resetPhysics()
         
             # Evaluation genotype 
