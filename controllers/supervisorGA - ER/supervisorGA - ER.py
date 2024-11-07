@@ -36,9 +36,9 @@ class SupervisorGA:
         
         ###########
         ### DEFINE here the 3 GA Parameters:
-        self.num_generations = 100
+        self.num_generations = 50
         self.num_population = 50
-        self.num_elite = 10
+        self.num_elite = 25
         
         # size of the genotype variable
         self.num_weights = 0
@@ -133,7 +133,7 @@ class SupervisorGA:
             #Webots 2022:  
             # INITIAL_TRANS = [0.01, -0.03425, 0.193]
             #Webots 2023:
-            INITIAL_TRANS = [0.2, 0, 0.2]
+            INITIAL_TRANS = [0.1, 0, 0.2]
             self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
             self.mark_node.resetPhysics()
         

@@ -143,10 +143,7 @@ class Controller:
                       
         ###########
         ### DEFINE the fitness function equation to avoid collision
-        right_collision_confidence = np.min(self.inputs[3:6])
-        left_collision_confidence = np.min(self.inputs[8:11])
-        f1_confidence = 2 * left_collision_confidence * right_collision_confidence
-        avoidCollisionFitness = f1_confidence / (right_collision_confidence + left_collision_confidence)
+        avoidCollisionFitness = np.max(self.inputs[3:11])
         
         ###########
         ### DEFINE the fitness function equation to avoid spining behaviour
@@ -154,7 +151,7 @@ class Controller:
         
         ###########
         ### DEFINE the fitness function equation of this iteration which should be a combination of the previous functions         
-        combinedFitness = forwardFitness * (spinningFitness) * (avoidCollisionFitness)
+        combinedFitness = forwardFitness * (spinningFitness) * (1 - avoidCollisionFitness)
         
         self.fitness_values.append(combinedFitness)
         self.fitness = np.mean(self.fitness_values) 
