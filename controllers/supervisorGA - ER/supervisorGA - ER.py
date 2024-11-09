@@ -3,6 +3,7 @@ from controller import Keyboard
 from controller import Display
 
 import numpy as np
+import math
 import ga,os,sys,struct
 
 class SupervisorGA:
@@ -36,9 +37,9 @@ class SupervisorGA:
         
         ###########
         ### DEFINE here the 3 GA Parameters:
-        self.num_generations = 50
-        self.num_population = 50
-        self.num_elite = 25
+        self.num_generations = 10
+        self.num_population = 20
+        self.num_elite = 4
         
         # size of the genotype variable
         self.num_weights = 0
@@ -57,6 +58,7 @@ class SupervisorGA:
         self.prev_average_fitness = 0.0;
         self.display.drawText("Fitness (Best - Red)", 0,0)
         self.display.drawText("Fitness (Average - Green)", 0,10)
+        self.max_distance = 0.63
         
         # Black mark
         self.mark_node = self.supervisor.getFromDef("Mark")
@@ -64,8 +66,7 @@ class SupervisorGA:
             sys.stderr.write("No DEF Mark node found in the current world file\n")
             sys.exit(1)
         #self.mark_trans_field = self.mark_node.getField("translation")
-        self.mark_loc_field = self.mark_node.getField("location")
-
+        self.mark_loc_field = self.mark_node.getField("location")     
 
     def createRandomPopulation(self):
         # Wait until the supervisor receives the size of the genotypes (number of weights)
@@ -133,6 +134,7 @@ class SupervisorGA:
             #Webots 2022:  
             # INITIAL_TRANS = [0.01, -0.03425, 0.193]
             #Webots 2023:
+            #Used the original mark code for the light, just swapping the position to be more suitable for the spotlight
             INITIAL_TRANS = [0.1, 0, 0.2]
             self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
             self.mark_node.resetPhysics()
@@ -141,31 +143,26 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            weight_paper = 0.35
-            weight_reward = 0.65
-            
-            paper_fitness = self.receivedFitness
+            fitness_paper = self.receivedFitness
+            fitness_paper_weight = 0.2
+            fitness_distance_weight = 0.8
             
             # Check for Reward and add it to the fitness value here
-            REWARD_TRANS = [0.35, -4.20e-5, -0.16]
-            current_trans = self.trans_field.getSFVec3f()
+            #RIGHT
+            #right - 0.378, -0.00361, -0.156
+            target_position_right = [0.378, -0.00361, -0.156]
+            current_position = self.trans_field.getSFVec3f()
             
-            # Distance Calculation WRT Reward
-            trans_reward_fitness = np.sqrt(
-                np.square(REWARD_TRANS[0] - current_trans[0]) + 
-                np.square(REWARD_TRANS[-1] - current_trans[-1])
-            )
+            distance_right = math.sqrt(
+                (current_position[0] - target_position_right[0]) ** 2 +
+                (current_position[1] - target_position_right[1]) ** 2 +
+                (current_position[2] - target_position_right[2]) ** 2
+                )
+
+            fitness_distance = max(0.1, 1 - (distance_right / self.max_distance))
             
-            # Distance Calculation WRT Initial State
-            trans_init_fitness = np.sqrt(
-                np.square(INITIAL_TRANS[0] - current_trans[0]) +
-                np.square(INITIAL_TRANS[-1] - current_trans[-1]) 
-            )
             
-            if trans_init_fitness < trans_reward_fitness:
-                fitness = weight_paper * paper_fitness
-            elif trans_reward_fitness < trans_init_fitness:
-                fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
+            fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
             
             print("Fitness: {}".format(fitness))     
                         
@@ -194,28 +191,25 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            paper_fitness = self.receivedFitness
+            fitness_paper = self.receivedFitness
+            fitness_paper_weight = 0.2
+            fitness_distance_weight = 0.8
             
             # Check for Reward and add it to the fitness value here
-            # Check for Reward and add it to the fitness value here
-            REWARD_TRANS = [-0.35, -4.20e-5, -0.16]
-            
-            # Distance Calculation WRT Reward
-            trans_reward_fitness = np.sqrt(
-                np.square(REWARD_TRANS[0] - current_trans[0]) + 
-                np.square(REWARD_TRANS[-1] - current_trans[-1])
-            )
-            
-            # Distance Calculation WRT Initial State
-            trans_init_fitness = np.sqrt(
-                np.square(INITIAL_TRANS[0] - current_trans[0]) +
-                np.square(INITIAL_TRANS[-1] - current_trans[-1]) 
-            )
-            
-            if trans_init_fitness < trans_reward_fitness:
-                fitness = weight_paper * paper_fitness
-            elif trans_reward_fitness < trans_init_fitness:
-                fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
+            #left - -0.373,-0.00115, -0.152
+            target_position_left = [-0.373, -0.00115, -0.152]
+            current_position = self.trans_field.getSFVec3f()
+
+            distance_left = math.sqrt(
+                (current_position[0] - target_position_left[0]) ** 2 +
+                (current_position[1] - target_position_left[1]) ** 2 +
+                (current_position[2] - target_position_left[2]) ** 2
+                )
+
+            fitness_distance = max(0.1, 1 - (distance_left / self.max_distance))
+             
+            fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
+         
             print("Fitness: {}".format(fitness))
             
             # Add fitness value to the vector
