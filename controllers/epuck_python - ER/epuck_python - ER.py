@@ -20,10 +20,10 @@ class Controller:
         ### The number of neurons should be in between of 1 to 20.
         ### Number of hidden layers should be one or two.
         
-        self.number_input_layer = 11
+        self.number_input_layer = 19
         # Example with one hidden layers: self.number_hidden_layer = [5]
         # Example with two hidden layers: self.number_hidden_layer = [7,5]
-        self.number_hidden_layer = [7, 5]
+        self.number_hidden_layer = [15, 9]
         self.number_output_layer = 2
         
         # Create a list with the number of neurons per layer
@@ -61,6 +61,13 @@ class Controller:
             sensor_name = 'ps' + str(i)
             self.proximity_sensors.append(self.robot.getDevice(sensor_name))
             self.proximity_sensors[i].enable(self.time_step)
+            
+        # Enable Light Sensors
+        self.light_sensors = []
+        for i in range(8):
+            sensor_name = "ls" + str(i)
+            self.light_sensors.append(self.robot.getDevice(sensor_name))
+            self.light_sensors[i].enable(self.time_step)
        
         # Enable Ground Sensors
         self.left_ir = self.robot.getDevice('gs0')
@@ -139,7 +146,7 @@ class Controller:
         ###########
         ### DEFINE the fitness function to increase the speed of the robot and 
         ### to encourage the robot to move forward
-        forwardFitness = (self.velocity_left + self.velocity_right) / 2
+        forwardFitness = (self.velocity_left + self.velocity_right + 2) / 4
                       
         ###########
         ### DEFINE the fitness function equation to avoid collision
@@ -147,7 +154,8 @@ class Controller:
         
         ###########
         ### DEFINE the fitness function equation to avoid spining behaviour
-        spinningFitness = 1 - np.sqrt(np.abs(self.velocity_left - self.velocity_right))
+        spinDiff = np.abs(self.velocity_left - self.velocity_right)
+        spinningFitness = 1 - np.sqrt(spinDiff / 2)
         
         ###########
         ### DEFINE the fitness function equation of this iteration which should be a combination of the previous functions         
@@ -237,8 +245,25 @@ class Controller:
             # Read Distance Sensors
             for i in range(8):
                 ### Select the distance sensors that you will use
-                if(i==0 or i==1 or i==2 or i==3 or i==4 or i==5 or i==6 or i==7):        
+                if(i < 8):        
                     temp = self.proximity_sensors[i].getValue()
+                    
+                    ### Please adjust the distance sensors values to facilitate learning 
+                    min_ds = 0
+                    max_ds = 4095
+                    
+                    if(temp > max_ds): temp = max_ds
+                    if(temp < min_ds): temp = min_ds
+                    
+                    # Normalize the values between 0 and 1 and save data
+                    self.inputs.append((temp-min_ds)/(max_ds-min_ds))
+                    #print("Distance Sensors - Index: {}  Value: {}".format(i,self.proximity_sensors[i].getValue()))
+    
+            # Read Light Sensors
+            for i in range(8):
+                ### Select the light sensors that you will use
+                if(i < 8):        
+                    temp = self.light_sensors[i].getValue()
                     
                     ### Please adjust the distance sensors values to facilitate learning 
                     min_ds = 0

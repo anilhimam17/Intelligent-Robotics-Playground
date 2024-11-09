@@ -38,7 +38,7 @@ class SupervisorGA:
         ### DEFINE here the 3 GA Parameters:
         self.num_generations = 50
         self.num_population = 50
-        self.num_elite = 25
+        self.num_elite = 20
         
         # size of the genotype variable
         self.num_weights = 0
@@ -147,7 +147,7 @@ class SupervisorGA:
             paper_fitness = self.receivedFitness
             
             # Check for Reward and add it to the fitness value here
-            REWARD_TRANS = [0.35, -4.20e-5, -0.16]
+            REWARD_TRANS = [0.375, -0.00361, -0.16]
             current_trans = self.trans_field.getSFVec3f()
             
             # Distance Calculation WRT Reward
@@ -163,7 +163,7 @@ class SupervisorGA:
             )
             
             if trans_init_fitness < trans_reward_fitness:
-                fitness = weight_paper * paper_fitness
+                fitness = weight_paper * paper_fitness * 0.1
             elif trans_reward_fitness < trans_init_fitness:
                 fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
             
@@ -198,7 +198,7 @@ class SupervisorGA:
             
             # Check for Reward and add it to the fitness value here
             # Check for Reward and add it to the fitness value here
-            REWARD_TRANS = [-0.35, -4.20e-5, -0.16]
+            REWARD_TRANS = [-0.375, -0.00361, -0.16]
             
             # Distance Calculation WRT Reward
             trans_reward_fitness = np.sqrt(
@@ -213,7 +213,7 @@ class SupervisorGA:
             )
             
             if trans_init_fitness < trans_reward_fitness:
-                fitness = weight_paper * paper_fitness
+                fitness = weight_paper * paper_fitness * 0.1
             elif trans_reward_fitness < trans_init_fitness:
                 fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
             print("Fitness: {}".format(fitness))
@@ -250,7 +250,7 @@ class SupervisorGA:
         
         # Reset the black mark position and physics
         INITIAL_TRANS = [0.01, -0.1, 0.193]
-        self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
+        self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
         self.mark_node.resetPhysics()
     
         # Evaluation genotype 
@@ -275,7 +275,7 @@ class SupervisorGA:
         # Reset the black mark position and physics
         #INITIAL_TRANS = [0.01, -0.03425, 0.193]
         INITIAL_TRANS = [0.01, -0.0249, 0.193]
-        self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
+        self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
         self.mark_node.resetPhysics()
     
         # Evaluation genotype 
@@ -283,7 +283,7 @@ class SupervisorGA:
         
         # Measure fitness
         fitness = self.receivedFitness
-        print("Fitness without reward or penalty: {}".format(fitness))    
+        print("Fitness without reward or penalty: {}".format(fitness))  
     
     def run_optimization(self):
         # Wait until the number of weights is updated
