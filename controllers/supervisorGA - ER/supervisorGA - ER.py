@@ -65,6 +65,9 @@ class SupervisorGA:
             sys.exit(1)
         #self.mark_trans_field = self.mark_node.getField("translation")
         self.mark_loc_field = self.mark_node.getField("location")
+        
+        # Maximum distance from reward
+        self.max_distance = 0.64
 
 
     def createRandomPopulation(self):
@@ -141,8 +144,8 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            weight_paper = 0.35
-            weight_reward = 0.65
+            weight_paper = 0.25
+            weight_reward = 0.75
             
             paper_fitness = self.receivedFitness
             
@@ -155,17 +158,7 @@ class SupervisorGA:
                 np.square(REWARD_TRANS[0] - current_trans[0]) + 
                 np.square(REWARD_TRANS[-1] - current_trans[-1])
             )
-            
-            # Distance Calculation WRT Initial State
-            trans_init_fitness = np.sqrt(
-                np.square(INITIAL_TRANS[0] - current_trans[0]) +
-                np.square(INITIAL_TRANS[-1] - current_trans[-1]) 
-            )
-            
-            if trans_init_fitness < trans_reward_fitness:
-                fitness = weight_paper * paper_fitness * 0.1
-            elif trans_reward_fitness < trans_init_fitness:
-                fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
+            fitness = weight_paper * paper_fitness + weight_reward * (1 - (trans_reward_fitness / self.max_distance))
             
             print("Fitness: {}".format(fitness))     
                         
@@ -206,16 +199,7 @@ class SupervisorGA:
                 np.square(REWARD_TRANS[-1] - current_trans[-1])
             )
             
-            # Distance Calculation WRT Initial State
-            trans_init_fitness = np.sqrt(
-                np.square(INITIAL_TRANS[0] - current_trans[0]) +
-                np.square(INITIAL_TRANS[-1] - current_trans[-1]) 
-            )
-            
-            if trans_init_fitness < trans_reward_fitness:
-                fitness = weight_paper * paper_fitness * 0.1
-            elif trans_reward_fitness < trans_init_fitness:
-                fitness = weight_paper * paper_fitness + weight_reward * (1 - trans_reward_fitness)
+            fitness = weight_paper * paper_fitness + weight_reward * (1 - (trans_reward_fitness / self.max_distance))
             print("Fitness: {}".format(fitness))
             
             # Add fitness value to the vector
