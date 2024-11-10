@@ -154,12 +154,13 @@ class SupervisorGA:
             current_trans = self.trans_field.getSFVec3f()
             
             # Distance Calculation WRT Reward
-            trans_reward_fitness = np.sqrt(
-                np.square(REWARD_TRANS[0] - current_trans[0]) + 
+            distance_right = np.sqrt(
+                np.square(REWARD_TRANS[0] - current_trans[0]) +
+                np.square(REWARD_TRANS[1] - current_trans[1]) +
                 np.square(REWARD_TRANS[-1] - current_trans[-1])
             )
-            fitness = weight_paper * paper_fitness + weight_reward * (1 - (trans_reward_fitness / self.max_distance))
-            
+            distance_fitness = distance_right / self.max_distance
+            fitness = weight_paper * paper_fitness + weight_reward * max(0.1, (1 - distance_fitness))
             print("Fitness: {}".format(fitness))     
                         
             # Add fitness value to the vector
@@ -194,12 +195,13 @@ class SupervisorGA:
             REWARD_TRANS = [-0.375, -0.00361, -0.16]
             
             # Distance Calculation WRT Reward
-            trans_reward_fitness = np.sqrt(
-                np.square(REWARD_TRANS[0] - current_trans[0]) + 
+            distance_left = np.sqrt(
+                np.square(REWARD_TRANS[0] - current_trans[0]) +
+                np.square(REWARD_TRANS[1] - current_trans[1]) +
                 np.square(REWARD_TRANS[-1] - current_trans[-1])
             )
-            
-            fitness = weight_paper * paper_fitness + weight_reward * (1 - (trans_reward_fitness / self.max_distance))
+            distance_fitness = distance_left / self.max_distance
+            fitness = weight_paper * paper_fitness + weight_reward * max(0.1, (1 - distance_fitness))
             print("Fitness: {}".format(fitness))
             
             # Add fitness value to the vector

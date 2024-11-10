@@ -2,6 +2,7 @@
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/RectangleArena.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/robots/gctronic/e-puck/protos/E-puckGroundSensors.proto"
 
@@ -13,12 +14,15 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.7044112878583851 -0.700374973347417 -0.11523729537912615 3.415210136712819
-  position -0.2076346863015913 3.4820734897985965 1.0184446328507053
+  orientation -0.7042548039569186 0.7026555812364763 0.1014904195519543 2.91844177971288
+  position 0.03531051078325971 2.044689920558095 0.6643803376906742
 }
 TexturedBackground {
   texture "mars"
   luminosity 0.2
+}
+TexturedBackgroundLight {
+  luminosity 0
 }
 RectangleArena {
   rotation 1 0 0 -1.5707996938995747
@@ -34,23 +38,6 @@ RectangleArena {
     metalness 0
   }
   wallHeight 0.05
-}
-DEF GA Robot {
-  children [
-    Receiver {
-      channel 20
-    }
-    Emitter {
-      channel 19
-    }
-    Display {
-      width 500
-      height 150
-    }
-  ]
-  name "Supervisor"
-  controller "supervisorGA - ER"
-  supervisor TRUE
 }
 DEF OBSTACLE1 Solid {
   translation -0.002842 0.025 -0.432401
@@ -206,13 +193,19 @@ DEF OBSTACLE1 Solid {
   boundingObject USE BOX1
 }
 DEF Controller E-puck {
-  hidden position_0_0 1594512.008422996
-  hidden position_0_1 1825173.4708025483
-  hidden rotation_1 -5.744922878921317e-17 1 -5.8022718151065824e-18 2.5839000721735794
-  hidden rotation_2 -4.203624230481683e-16 1 -7.648339120998813e-17 5.607953402458235
-  translation -0.375 -0.00361 -0.16
-  rotation -0.9993314428547645 0.02786818396657737 0.023664987729126872 1.5728990468536261
-  controller "epuck_python - ER"
+  hidden position_0_0 648545.408850192
+  hidden position_0_1 627402.1570917787
+  hidden linearVelocity_0 7.282455165522987e-15 -6.205406558971542e-15 -1.3215132189683549e-11
+  hidden angularVelocity_0 3.900169320796403e-14 8.03419433154741e-14 -7.906558906629244e-14
+  hidden rotation_1 0 -1 0 4.978556884940204
+  hidden linearVelocity_1 9.454632992852268e-15 -2.6599719272227743e-16 -1.3216815942508515e-11
+  hidden angularVelocity_1 -2.512682653847105e-13 1.15912075562113e-13 -3.015170195949607e-13
+  hidden rotation_2 0 1 0 0.9714286682749679
+  hidden linearVelocity_2 8.967658910224089e-15 8.883425960145923e-16 -1.3216780231500425e-11
+  hidden angularVelocity_2 -6.365876788565359e-14 -8.5123840735219e-14 -4.603133803493647e-13
+  translation 0.34284639237463543 -6.455033681087956e-05 -0.17473220055677563
+  rotation -0.2753152580530119 -0.6797821303855736 -0.6797777312413631 2.60428548704006
+  controller "epuckBBR"
   emitter_channel 20
   receiver_channel 19
   groundSensorsSlot [
@@ -220,10 +213,15 @@ DEF Controller E-puck {
     }
   ]
 }
-DEF Mark SpotLight {
+DEF Light SpotLight {
   attenuation 0 0 1
   beamWidth 0.4
   direction -5 0 -0.1
   intensity 10
-  location 0.1 0 0.2
+  location 0.2 0 0.2
+}
+Robot {
+  name "Supervisor"
+  controller "supervisorBBR"
+  supervisor TRUE
 }
