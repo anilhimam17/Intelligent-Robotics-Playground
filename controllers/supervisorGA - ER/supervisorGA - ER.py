@@ -144,23 +144,23 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            weight_paper = 0.25
-            weight_reward = 0.75
+            fitness_paper_weight = 0.25
+            fitness_distance_weight = 0.75
             
-            paper_fitness = self.receivedFitness
+            fitness_paper = self.receivedFitness
             
             # Check for Reward and add it to the fitness value here
-            REWARD_TRANS = [0.375, -0.00361, -0.16]
-            current_trans = self.trans_field.getSFVec3f()
+            target_position_right = [0.378, -0.00361, -0.156]
+            current_position = self.trans_field.getSFVec3f()
             
-            # Distance Calculation WRT Reward
-            distance_right = np.sqrt(
-                np.square(REWARD_TRANS[0] - current_trans[0]) +
-                np.square(REWARD_TRANS[1] - current_trans[1]) +
-                np.square(REWARD_TRANS[-1] - current_trans[-1])
-            )
-            distance_fitness = distance_right / self.max_distance
-            fitness = weight_paper * paper_fitness + weight_reward * max(0.1, (1 - distance_fitness))
+            distance_right = math.sqrt(
+                (current_position[0] - target_position_right[0]) ** 2 +
+                (current_position[1] - target_position_right[1]) ** 2 +
+                (current_position[2] - target_position_right[2]) ** 2
+                )
+
+            fitness_distance = max(0.1, 1 - (distance_right / self.max_distance))
+            fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
             print("Fitness: {}".format(fitness))     
                         
             # Add fitness value to the vector
@@ -188,20 +188,20 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            paper_fitness = self.receivedFitness
+            fitness_paper = self.receivedFitness
             
-            # Check for Reward and add it to the fitness value here
-            # Check for Reward and add it to the fitness value here
-            REWARD_TRANS = [-0.375, -0.00361, -0.16]
-            
-            # Distance Calculation WRT Reward
-            distance_left = np.sqrt(
-                np.square(REWARD_TRANS[0] - current_trans[0]) +
-                np.square(REWARD_TRANS[1] - current_trans[1]) +
-                np.square(REWARD_TRANS[-1] - current_trans[-1])
-            )
-            distance_fitness = distance_left / self.max_distance
-            fitness = weight_paper * paper_fitness + weight_reward * max(0.1, (1 - distance_fitness))
+            target_position_left = [-0.373, -0.00115, -0.152]
+            current_position = self.trans_field.getSFVec3f()
+
+            distance_left = math.sqrt(
+                (current_position[0] - target_position_left[0]) ** 2 +
+                (current_position[1] - target_position_left[1]) ** 2 +
+                (current_position[2] - target_position_left[2]) ** 2
+                )
+
+            fitness_distance = max(0.1, 1 - (distance_left / self.max_distance))
+             
+            fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
             print("Fitness: {}".format(fitness))
             
             # Add fitness value to the vector
