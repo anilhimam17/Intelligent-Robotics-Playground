@@ -153,7 +153,7 @@ class SupervisorGA:
             target_position_right = [0.378, -0.00361, -0.156]
             current_position = self.trans_field.getSFVec3f()
             
-            distance_right = math.sqrt(
+            distance_right = np.sqrt(
                 (current_position[0] - target_position_right[0]) ** 2 +
                 (current_position[1] - target_position_right[1]) ** 2 +
                 (current_position[2] - target_position_right[2]) ** 2
@@ -193,7 +193,7 @@ class SupervisorGA:
             target_position_left = [-0.373, -0.00115, -0.152]
             current_position = self.trans_field.getSFVec3f()
 
-            distance_left = math.sqrt(
+            distance_left = np.sqrt(
                 (current_position[0] - target_position_left[0]) ** 2 +
                 (current_position[1] - target_position_left[1]) ** 2 +
                 (current_position[2] - target_position_left[2]) ** 2
