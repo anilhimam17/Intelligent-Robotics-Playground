@@ -3,6 +3,7 @@ from controller import Keyboard
 from controller import Display
 
 import numpy as np
+import math
 import ga,os,sys,struct
 
 class SupervisorGA:
@@ -36,9 +37,9 @@ class SupervisorGA:
         
         ###########
         ### DEFINE here the 3 GA Parameters:
-        self.num_generations = 50
-        self.num_population = 50
-        self.num_elite = 20
+        self.num_generations = 10
+        self.num_population = 20
+        self.num_elite = 4
         
         # size of the genotype variable
         self.num_weights = 0
@@ -57,6 +58,7 @@ class SupervisorGA:
         self.prev_average_fitness = 0.0;
         self.display.drawText("Fitness (Best - Red)", 0,0)
         self.display.drawText("Fitness (Average - Green)", 0,10)
+        self.max_distance = 0.63
         
         # Black mark
         self.mark_node = self.supervisor.getFromDef("Mark")
@@ -64,11 +66,7 @@ class SupervisorGA:
             sys.stderr.write("No DEF Mark node found in the current world file\n")
             sys.exit(1)
         #self.mark_trans_field = self.mark_node.getField("translation")
-        self.mark_loc_field = self.mark_node.getField("location")
-        
-        # Maximum distance from reward
-        self.max_distance = 0.64
-
+        self.mark_loc_field = self.mark_node.getField("location")     
 
     def createRandomPopulation(self):
         # Wait until the supervisor receives the size of the genotypes (number of weights)
@@ -136,6 +134,7 @@ class SupervisorGA:
             #Webots 2022:  
             # INITIAL_TRANS = [0.01, -0.03425, 0.193]
             #Webots 2023:
+            #Used the original mark code for the light, just swapping the position to be more suitable for the spotlight
             INITIAL_TRANS = [0.1, 0, 0.2]
             self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
             self.mark_node.resetPhysics()
@@ -144,12 +143,13 @@ class SupervisorGA:
             self.run_seconds(self.time_experiment)
         
             # Measure fitness
-            fitness_paper_weight = 0.25
-            fitness_distance_weight = 0.75
-            
             fitness_paper = self.receivedFitness
+            fitness_paper_weight = 0.2
+            fitness_distance_weight = 0.8
             
             # Check for Reward and add it to the fitness value here
+            #RIGHT
+            #right - 0.378, -0.00361, -0.156
             target_position_right = [0.378, -0.00361, -0.156]
             current_position = self.trans_field.getSFVec3f()
             
@@ -160,7 +160,10 @@ class SupervisorGA:
                 )
 
             fitness_distance = max(0.1, 1 - (distance_right / self.max_distance))
+            
+            
             fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
+            
             print("Fitness: {}".format(fitness))     
                         
             # Add fitness value to the vector
@@ -189,7 +192,11 @@ class SupervisorGA:
         
             # Measure fitness
             fitness_paper = self.receivedFitness
+            fitness_paper_weight = 0.2
+            fitness_distance_weight = 0.8
             
+            # Check for Reward and add it to the fitness value here
+            #left - -0.373,-0.00115, -0.152
             target_position_left = [-0.373, -0.00115, -0.152]
             current_position = self.trans_field.getSFVec3f()
 
@@ -202,6 +209,7 @@ class SupervisorGA:
             fitness_distance = max(0.1, 1 - (distance_left / self.max_distance))
              
             fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
+         
             print("Fitness: {}".format(fitness))
             
             # Add fitness value to the vector
@@ -235,8 +243,8 @@ class SupervisorGA:
         self.robot_node.resetPhysics()
         
         # Reset the black mark position and physics
-        INITIAL_TRANS = [0.01, -0.1, 0.193]
-        self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
+        INITIAL_TRANS = [0.2, -10, 0.2]
+        self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
         self.mark_node.resetPhysics()
     
         # Evaluation genotype 
@@ -261,7 +269,7 @@ class SupervisorGA:
         # Reset the black mark position and physics
         #INITIAL_TRANS = [0.01, -0.03425, 0.193]
         INITIAL_TRANS = [0.1, 0, 0.2]
-        self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
+        self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
         self.mark_node.resetPhysics()
     
         # Evaluation genotype 
@@ -269,7 +277,7 @@ class SupervisorGA:
         
         # Measure fitness
         fitness = self.receivedFitness
-        print("Fitness without reward or penalty: {}".format(fitness))  
+        print("Fitness without reward or penalty: {}".format(fitness))    
     
     def run_optimization(self):
         # Wait until the number of weights is updated
