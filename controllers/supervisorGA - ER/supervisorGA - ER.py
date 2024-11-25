@@ -244,7 +244,7 @@ class SupervisorGA:
         
         # Reset the black mark position and physics
         INITIAL_TRANS = [0.2, -10, 0.2]
-        self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
+        self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
         self.mark_node.resetPhysics()
     
         # Evaluation genotype 
@@ -269,7 +269,7 @@ class SupervisorGA:
         # Reset the black mark position and physics
         #INITIAL_TRANS = [0.01, -0.03425, 0.193]
         INITIAL_TRANS = [0.1, 0, 0.2]
-        self.mark_trans_field.setSFVec3f(INITIAL_TRANS)
+        self.mark_loc_field.setSFVec3f(INITIAL_TRANS)
         self.mark_node.resetPhysics()
     
         # Evaluation genotype 
