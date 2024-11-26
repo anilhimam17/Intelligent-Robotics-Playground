@@ -1,6 +1,7 @@
 from controller import Supervisor
 from controller import Keyboard
 from controller import Display
+from .. import config
 
 import numpy as np
 import math
@@ -37,10 +38,10 @@ class SupervisorGA:
         
         ###########
         ### DEFINE here the 3 GA Parameters:
-        self.num_generations = 10
-        self.num_population = 20
-        self.num_elite = 4
-        self.fitness_paper_weight = 0.5
+        self.num_generations = config.NUM_GENERATIONS
+        self.num_population = config.NUM_POPULATION
+        self.num_elite = config.NUM_ELITE
+        self.fitness_paper_weight = config.PAPER_WEIGHT
         self.fitness_distance_weight = 1 - self.fitness_paper_weight
         
         # size of the genotype variable
