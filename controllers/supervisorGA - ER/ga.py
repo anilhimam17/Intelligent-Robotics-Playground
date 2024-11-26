@@ -1,6 +1,6 @@
 import numpy,random
 
-from .. import config
+import config2 as config
 
 def population_reproduce(genotypes,elite):
     ###########
