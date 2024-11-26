@@ -2,7 +2,7 @@ from controller import Robot, Receiver, Emitter
 import sys,struct,math
 import numpy as np
 import mlp as ntw
-from .. import config
+import config1 as config
 
 class Controller:
     def __init__(self, robot):        
