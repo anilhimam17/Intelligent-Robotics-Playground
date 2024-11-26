@@ -250,8 +250,8 @@ class Controller:
                     temp = self.proximity_sensors[i].getValue()
                     
                     ### Please adjust the distance sensors values to facilitate learning 
-                    min_ds = 0
-                    max_ds = 4095
+                    min_ds = 200
+                    max_ds = 1800
                     
                     if(temp > max_ds): temp = max_ds
                     if(temp < min_ds): temp = min_ds
@@ -266,15 +266,15 @@ class Controller:
                 if(i < 8):        
                     temp = self.light_sensors[i].getValue()
                     
-                    ### Please adjust the distance sensors values to facilitate learning 
-                    min_ds = 0
-                    max_ds = 4095
+                    ### Please adjust the light sensors values to facilitate learning 
+                    min_ls = 0
+                    max_ls = 4095
                     
-                    if(temp > max_ds): temp = max_ds
-                    if(temp < min_ds): temp = min_ds
+                    if(temp > max_ls): temp = max_ls
+                    if(temp < min_ls): temp = min_ls
                     
                     # Normalize the values between 0 and 1 and save data
-                    self.inputs.append((temp-min_ds)/(max_ds-min_ds))
+                    self.inputs.append((temp-min_ls)/(max_ds-min_ls))
                     #print("Distance Sensors - Index: {}  Value: {}".format(i,self.proximity_sensors[i].getValue()))
     
             # GA Iteration       
