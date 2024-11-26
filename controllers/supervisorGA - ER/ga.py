@@ -1,9 +1,12 @@
 import numpy,random
 
+cp = 70
+mp = 25
+
 def population_reproduce(genotypes,elite):
     ###########
     ### DEFINE  crossover rate (integer number between 0 and 100):
-    cp = 70
+    global cp
     
     genotypes_not_ranked = genotypes
     # Rank: lowest to highest fitness
@@ -74,7 +77,7 @@ def mutation(child):
     after_mutation = []
     ###########
     ### DEFINE  mutation percentage (integer number between 0 and 100):
-    mp = 25
+    global mp
     
     for gene in range(len(child)):
         if(random.randint(1,100) < mp):
