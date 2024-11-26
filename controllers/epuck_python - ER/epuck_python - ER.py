@@ -2,6 +2,7 @@ from controller import Robot, Receiver, Emitter
 import sys,struct,math
 import numpy as np
 import mlp as ntw
+from .. import config
 
 class Controller:
     def __init__(self, robot):        
@@ -23,7 +24,7 @@ class Controller:
         self.number_input_layer = 19
         # Example with one hidden layers: self.number_hidden_layer = [5]
         # Example with two hidden layers: self.number_hidden_layer = [7,5]
-        self.number_hidden_layer = [15, 9]
+        self.number_hidden_layer = config.HIDDEN_LAYERS
         self.number_output_layer = 2
         
         # Create a list with the number of neurons per layer
