@@ -1,0 +1,1 @@
+HIDDEN_LAYERS = [15, 9]
