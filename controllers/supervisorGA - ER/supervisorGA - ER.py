@@ -40,6 +40,8 @@ class SupervisorGA:
         self.num_generations = 10
         self.num_population = 20
         self.num_elite = 4
+        self.fitness_paper_weight = 0.5
+        self.fitness_distance_weight = 1 - self.fitness_paper_weight
         
         # size of the genotype variable
         self.num_weights = 0
@@ -144,8 +146,7 @@ class SupervisorGA:
         
             # Measure fitness
             fitness_paper = self.receivedFitness
-            fitness_paper_weight = 0.2
-            fitness_distance_weight = 0.8
+
             
             # Check for Reward and add it to the fitness value here
             #RIGHT
@@ -162,7 +163,7 @@ class SupervisorGA:
             fitness_distance = max(0.1, 1 - (distance_right / self.max_distance))
             
             
-            fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
+            fitness = self.fitness_paper_weight * fitness_paper + self.fitness_distance_weight * fitness_distance
             
             print("Fitness: {}".format(fitness))     
                         
@@ -192,8 +193,6 @@ class SupervisorGA:
         
             # Measure fitness
             fitness_paper = self.receivedFitness
-            fitness_paper_weight = 0.2
-            fitness_distance_weight = 0.8
             
             # Check for Reward and add it to the fitness value here
             #left - -0.373,-0.00115, -0.152
@@ -208,7 +207,7 @@ class SupervisorGA:
 
             fitness_distance = max(0.1, 1 - (distance_left / self.max_distance))
              
-            fitness = fitness_paper_weight * fitness_paper + fitness_distance_weight * fitness_distance
+            fitness = self.fitness_paper_weight * fitness_paper + self.fitness_distance_weight * fitness_distance
          
             print("Fitness: {}".format(fitness))
             
