@@ -1,7 +1,7 @@
 from controller import Supervisor
 from controller import Keyboard
 from controller import Display
-from .. import config
+import config2 as config
 
 import numpy as np
 import math
