@@ -5,7 +5,7 @@ class SupervisorLight:
     def __init__(self):
         # Simulation Parameters
         self.time_step = 33 # (ms)
-        self.time_light = 40 # (s)
+        self.time_light = 30 # (s)
         self.flag_light = 1 # You can use the flag to identify the current position of the light node
         
         # Initiate Supervisor Module
@@ -49,7 +49,7 @@ class SupervisorLight:
             self.location_field.setSFVec3f([20, 0, 20])
         else:
             # Light Position B
-            self.location_field.setSFVec3f([0.2, 0, 0.2])
+            self.location_field.setSFVec3f([0.1, 0, 0.2])
 
         # Toggle flag for next cycle
         self.flag_light = 1 - self.flag_light
