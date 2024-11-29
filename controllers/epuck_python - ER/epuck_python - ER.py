@@ -1,4 +1,5 @@
 from controller import Robot, Receiver, Emitter
+import matplotlib.pyplot as plt
 import sys,struct,math
 import numpy as np
 import mlp as ntw
@@ -89,6 +90,10 @@ class Controller:
         # Fitness value (initialization fitness parameters once)
         self.fitness_values = []
         self.fitness = 0
+
+        # Motor Value Capture
+        self.left_motor_values = []
+        self.right_motor_values = []
 
     def check_for_new_genes(self):
         if(self.flagMessage == True):
@@ -209,7 +214,17 @@ class Controller:
             #print("Controller receiver q is empty")
             self.flagMessage = False
 
-    def run_robot(self):        
+    def calculate_velocity(self):
+        self.left_motor_values = []
+        self.right_motor_values = []
+        self.left_motor_values.append(self.velocity_left)
+        self.right_motor_values.append(self.velocity_right)
+        return np.mean(self.left_motor_values), np.mean(self.right_motor_values)
+
+    def run_robot(self):
+        left_means = []
+        right_means = []
+        
         # Main Loop
         while self.robot.step(self.time_step) != -1:
             # This is used to store the current input data from the sensors
@@ -284,6 +299,17 @@ class Controller:
             self.sense_compute_and_actuate()
             # Calculate the fitnes value of the current iteration
             self.calculate_fitness()
+
+            left, right = self.calculate_velocity()
+            left_means.append(left)
+            right_means.append(right)
+            
+            # End of the iteration 
+        else:
+            plt.plot(left_means, label="left")
+            plt.plot(right_means, label="right")
+            plt.legend(loc="upper right")
+            plt.savefig("MotorPerformance.png")
             
             # End of the iteration 
             
