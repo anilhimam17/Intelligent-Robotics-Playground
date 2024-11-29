@@ -7,7 +7,7 @@ maximizedDockId: -1
 centralWidgetVisible: 1
 renderingMode: PLAIN
 orthographicViewHeight: 1
-textFiles: 1 "../../controllers/epuck_python - ER/config1.py" "../../controllers/supervisorGA - ER/config2.py"
+textFiles: 1 "../../../../Users/Ethan/Documents/roboCW/Intelligent-Robotics-Playground/controllers/epuck_python - ER/config1.py" "../../../../Users/Ethan/Documents/roboCW/Intelligent-Robotics-Playground/controllers/supervisorGA - ER/config2.py" "../../../../Users/Ethan/Documents/roboCW/Intelligent-Robotics-Playground/controllers/epuck_python - ER/epuck_python - ER.py"
 consoles: Console:All:All
 renderingDevicePerspectives: Supervisor:display;1;0.946667;0;0
 renderingDevicePerspectives: e-puck:camera;0;1;0;0

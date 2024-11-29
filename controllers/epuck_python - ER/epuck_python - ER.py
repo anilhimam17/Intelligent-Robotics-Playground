@@ -249,9 +249,9 @@ class Controller:
                 if(i < 8):        
                     temp = self.proximity_sensors[i].getValue()
                     
-                    ### Please adjust the distance sensors values to facilitate learning 
                     min_ds = 200
                     max_ds = 1800
+                    #min and max values chosen to more strictly punish sliding against the wall, additionally gives alost no loss of fitness when a wall is not currently in contact with the robot
                     
                     if(temp > max_ds): temp = max_ds
                     if(temp < min_ds): temp = min_ds
