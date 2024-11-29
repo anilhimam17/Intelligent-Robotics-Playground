@@ -3,5 +3,5 @@ PAPER_WEIGHT = 0.4
 NUM_GENERATIONS = 10
 NUM_POPULATION = 30
 NUM_ELITE = 2 # Between 0 and NUM_POPULATION
-CP = 40 # Between 0 and 100
-MP = 50 # Between 0 and 100
+CP = 20 # Between 0 and 100
+MP = 70 # Between 0 and 100

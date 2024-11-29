@@ -13,17 +13,8 @@ class Controller:
         self.max_speed = 1  # m/s
  
         # MLP Parameters and Variables 
-          
-        ###########
-        ### DEFINE below the architecture of your MLP network:
-         
-        ### Add the number of neurons for input layer, hidden layer and output layer.
-        ### The number of neurons should be in between of 1 to 20.
-        ### Number of hidden layers should be one or two.
         
         self.number_input_layer = 19
-        # Example with one hidden layers: self.number_hidden_layer = [5]
-        # Example with two hidden layers: self.number_hidden_layer = [7,5]
         self.number_hidden_layer = config.HIDDEN_LAYERS
         self.number_output_layer = 2
         
@@ -144,17 +135,12 @@ class Controller:
 
     def calculate_fitness(self):
         
-        ###########
-        ### DEFINE the fitness function to increase the speed of the robot and 
-        ### to encourage the robot to move forward
+        #Get the
         forwardFitness = (self.velocity_left + self.velocity_right + 2) / 4
                       
-        ###########
-        ### DEFINE the fitness function equation to avoid collision
+
         avoidCollisionFitness = np.max(self.inputs[3:11])
         
-        ###########
-        ### DEFINE the fitness function equation to avoid spining behaviour
         spinDiff = np.abs(self.velocity_left - self.velocity_right)
         spinningFitness = 1 - np.sqrt(spinDiff / 2)
         
