@@ -1,5 +1,7 @@
-# Intelligent Robotics Playground
- A compilation of different tutorials and courseworks from the Intelligent Robotics course. Each directory is a simulation of robots in a space.
+# Execution
+To run the ER program using webots access the world file present in worlds/e-puck_Robotics_TMaze_Webots2023.wbt, to alter the hyperparameters use the files config1 and config2 in controllers/epuck_python - ER/config1.py and controllers/supervisorGA - ER/config2.py respectively.
+
+To run the BBR program using webots access the world file present in Rat BBR/Rat BBR/worlds/e-puck_Robotics_TMaze_BBR.wbt.  
 
 ## ER Training Format
 - Ensure the controller is `epuck_python - ER.py`
@@ -17,7 +19,3 @@
 - On completing training please store the Best.npy file (/controllers/supervisorGA - ER.py) with the weights and log the hyperparameters mentioned above within the training log folder.
 
 
-# Execution
-To run the ER program using webots access the world file present in worlds/e-puck_Robotics_TMaze_Webots2023.wbt, to alter the hyperparameters use the files config1 and config2 in controllers/epuck_python - ER/config1.py and controllers/supervisorGA - ER/config2.py respectively.
-
-To run the BBR program using webots access the world file present in Rat BBR/Rat BBR/worlds/e-puck_Robotics_TMaze_BBR.wbt.  
