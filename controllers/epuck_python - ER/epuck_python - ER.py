@@ -292,8 +292,11 @@ class Controller:
             
             # End of the iteration 
         else:
-            plt.plot(left_means, label="left")
-            plt.plot(right_means, label="right")
+            plt.plot(left_means, label="Left Motor")
+            plt.plot(right_means, label="Right Motor")
+            plt.plot(self.fitness_values, label="Fitness")
+            plt.axvline(x=len(left_means) / 2, linestyle='--', label='Test Change Point')
+            
             plt.legend(loc="upper right")
             plt.savefig("MotorPerformance.png")
             
